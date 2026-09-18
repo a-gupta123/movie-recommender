@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <header class="hero">
+            <p class="eyebrow">Class project · TMDB API</p>
+            <h1>Movie Recommender</h1>
+            <p class="lede">
+                Choose a genre, mood, rating, or year range. The app turns those
+                choices into a TMDB Discover search and shows popular matches.
+            </p>
+        </header>
+
+        <section class="panel">
+            <h2>What do you want to watch?</h2>
+            <form method="post" class="filters">
+                <label>
+                    Genre
+                    <select name="genre">
+                        <option value="">Any genre</option>
+                        {% for genre in genres %}
+                            <option value="{{ genre.id }}" {% if form.genre == genre.id|string %}selected{% endif %}>
+                                {{ genre.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <label>
+                    Mood or type
+                    <select name="mood">
+                        <option value="">Any mood</option>
+                        {% for value, label in moods %}
+                            <option value="{{ value }}" {% if form.mood == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <label>
+                    Minimum rating
+                    <select name="min_rating">
+                        <option value="">Any rating</option>
+                        {% for rating in rating_choices if rating %}
+                            <option value="{{ rating }}" {% if form.min_rating == rating %}selected{% endif %}>
+                                {{ rating }}+
+                            </option>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <label>
+                    From year
+                    <input
+                        type="number"
+                        name="year_from"
+                        min="1900"
+                        max="{{ current_year + 1 }}"
+                        placeholder="e.g. 2010"
+                        value="{{ form.year_from }}"
+                    >
+                </label>
+
+                <label>
+                    To year
+                    <input
+                        type="number"
+                        name="year_to"
+                        min="1900"
+                        max="{{ current_year + 1 }}"
+                        placeholder="e.g. {{ current_year }}"
+                        value="{{ form.year_to }}"
+                    >
+                </label>
+
+                <div class="actions">
+                    <button type="submit">Find Movies</button>
+                </div>
+            </form>
+        </section>
+
+        {% if error %}
+            <p class="banner error" role="alert">{{ error }}</p>
+        {% endif %}
+
+        {% if movies is not none and not error %}
+            {% if movies %}
+                <section class="results">
+                    <h2>Recommendations</h2>
+                    <p class="hint">
+                        Showing {{ movies|length }} popular titles with at least
+                        {{ min_vote_count }} ratings.
+                    </p>
+                    <ul class="movie-list">
+                        {% for movie in movies %}
+                            <li class="movie-card">
+                                {% if movie.poster_url %}
+                                    <img src="{{ movie.poster_url }}" alt="Poster for {{ movie.title }}">
+                                {% else %}
+                                    <div class="poster-fallback" aria-hidden="true">No poster</div>
+                                {% endif %}
+                                <div class="movie-body">
+                                    <h3>{{ movie.title }}</h3>
+                                    <p class="meta">{{ movie.year }} · ★ {{ movie.rating }}</p>
+                                    <p class="overview">{{ movie.overview }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% else %}
+                <p class="banner empty" role="status">
+                    No movies matched those filters. Try a wider year range, a lower
+                    rating, or a different genre or mood.
+                </p>
+            {% endif %}
+        {% endif %}
+
+        <footer>
+            This product uses the TMDB API but is not endorsed or certified by TMDB.
+        </footer>
+    </main>
+</body>
+</html>

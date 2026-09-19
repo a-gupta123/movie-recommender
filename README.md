@@ -6,7 +6,7 @@ This project was built for a class assignment that requires a public API, user-c
 
 **Live demo:** [https://a-gupta123.github.io/movie-recommender/](https://a-gupta123.github.io/movie-recommender/)
 
-GitHub Pages can only host static files, so the live site is a same-feature HTML/CSS/JavaScript version in `docs/`. It still uses TMDB Discover. Paste your TMDB API key in the page once; it is stored in your browser, not in the repository. Run the Flask app locally for the Python version.
+GitHub Pages can only host static files, so the live site is a same-feature HTML/CSS/JavaScript version in `docs/`. The form asks for genre, mood, rating, and year; only one of those is required. Run the Flask app locally for the Python version.
 
 ## Features
 
@@ -27,7 +27,8 @@ movie-recommender/
 ├── docs/                # GitHub Pages static demo
 │   ├── index.html
 │   ├── style.css
-│   └── app.js
+│   ├── app.js
+│   └── config.js
 ├── .env                 # local API key (not committed)
 ├── .gitignore
 ├── requirements.txt
@@ -78,7 +79,7 @@ Then open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 Live demo: [https://a-gupta123.github.io/movie-recommender/](https://a-gupta123.github.io/movie-recommender/)
 
-GitHub Pages cannot run Flask, so the hosted site is the static app in `docs/`. Paste your TMDB API key on the page once; it stays in your browser and is not stored in the repository.
+GitHub Pages cannot run Flask, so the hosted site is the static app in `docs/`. The search form does not ask for an API key.
 
 ## How it works
 

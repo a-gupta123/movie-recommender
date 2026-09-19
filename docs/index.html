@@ -12,25 +12,15 @@
             <p class="eyebrow">Class project · TMDB API</p>
             <h1>Movie Recommender</h1>
             <p class="lede">
-                Choose a genre, mood, rating, or year range. The app turns those
-                choices into a TMDB Discover search and shows popular matches.
+                Choose a genre, mood, rating, or year range. You only need to
+                fill in one of these. The app turns those choices into a TMDB
+                Discover search and shows popular matches.
             </p>
         </header>
 
         <section class="panel">
             <h2>What do you want to watch?</h2>
             <form id="search-form" class="filters">
-                <label class="api-key-row">
-                    TMDB API key
-                    <input
-                        type="password"
-                        id="api-key"
-                        name="api_key"
-                        autocomplete="off"
-                        placeholder="Paste your TMDB v3 API key"
-                    >
-                </label>
-
                 <label>
                     Genre
                     <select name="genre" id="genre">
@@ -83,9 +73,9 @@
 
         <footer>
             This product uses the TMDB API but is not endorsed or certified by TMDB.
-            GitHub Pages cannot run Flask, so this hosted demo uses HTML, CSS, and JavaScript to call TMDB from the browser. Your API key is saved only in this browser.
         </footer>
     </main>
+    <script src="./config.js"></script>
     <script src="./app.js"></script>
 </body>
 </html>

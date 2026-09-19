@@ -223,7 +223,7 @@ def validate_form(form, genre_list):
         ]
     )
     if not has_any_filter:
-        return "Please choose at least a genre, mood, minimum rating, or year range.", None
+        return "Please choose at least one filter: a genre, mood, minimum rating, or year.", None
 
     return None, {
         "genre": genre,

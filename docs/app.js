@@ -2,11 +2,6 @@ const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
 const RESULTS_TO_SHOW = 8;
 const MIN_VOTE_COUNT = 50;
-const STORAGE_KEY = "tmdb_api_key";
-const PLACEHOLDER_API_KEYS = new Set([
-    "your_tmdb_api_key_here",
-    "paste_your_real_key_here",
-]);
 
 const FALLBACK_GENRES = [
     { id: 28, name: "Action" },
@@ -39,7 +34,6 @@ const MOOD_TO_GENRE_NAMES = {
 };
 
 const form = document.getElementById("search-form");
-const apiKeyInput = document.getElementById("api-key");
 const genreSelect = document.getElementById("genre");
 const yearFromInput = document.getElementById("year-from");
 const yearToInput = document.getElementById("year-to");
@@ -53,12 +47,11 @@ function currentYear() {
 }
 
 function getApiKey() {
-    return apiKeyInput.value.trim();
+    return (window.TMDB_API_KEY || "").trim();
 }
 
 function hasApiKey() {
-    const key = getApiKey().toLowerCase();
-    return Boolean(key) && !PLACEHOLDER_API_KEYS.has(key);
+    return Boolean(getApiKey());
 }
 
 function showStatus(message, type) {
@@ -171,7 +164,7 @@ function validateForm(formValues) {
         toResult.year !== null
     );
     if (!hasAnyFilter) {
-        return { error: "Please choose at least a genre, mood, minimum rating, or year range." };
+        return { error: "Please choose at least one filter: a genre, mood, minimum rating, or year." };
     }
 
     return {
@@ -308,7 +301,7 @@ async function fetchFromTmdb(url) {
     }
 
     if (response.status === 401) {
-        throw new Error("The TMDB API key looks invalid. Check the key and try again.");
+        throw new Error("The movie service rejected this request. Please try again later.");
     }
     if (response.status === 429) {
         throw new Error("Too many requests were sent to TMDB. Please wait a moment and try again.");
@@ -368,7 +361,6 @@ async function loadGenres() {
 
 async function handleSearch(event) {
     event.preventDefault();
-    localStorage.setItem(STORAGE_KEY, getApiKey());
 
     const validation = validateForm({
         genre: genreSelect.value.trim(),
@@ -384,10 +376,7 @@ async function handleSearch(event) {
     }
 
     if (!hasApiKey()) {
-        showStatus(
-            "The TMDB API key is missing. Paste your key above, then try again.",
-            "error"
-        );
+        showStatus("The movie service is not configured, so searches cannot run.", "error");
         return;
     }
 
@@ -426,9 +415,7 @@ function setupYearInputs() {
     yearToInput.placeholder = `e.g. ${currentYear()}`;
 }
 
-apiKeyInput.value = localStorage.getItem(STORAGE_KEY) || "";
 setupYearInputs();
 fillGenreOptions();
 loadGenres();
 form.addEventListener("submit", handleSearch);
-apiKeyInput.addEventListener("change", loadGenres);

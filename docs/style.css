@@ -75,10 +75,6 @@ footer {
     gap: 16px;
 }
 
-.api-key-row {
-    grid-column: 1 / -1;
-}
-
 label {
     display: flex;
     flex-direction: column;

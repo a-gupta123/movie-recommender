@@ -24,12 +24,12 @@ movie-recommender/
 │   └── index.html
 ├── static/
 │   └── style.css
-├── docs/                # GitHub Pages static demo
-│   ├── index.html
-│   ├── style.css
-│   ├── app.js
-│   └── config.js
-├── .env                 # local API key (not committed)
+├── index.html           # GitHub Pages app
+├── app.js
+├── style.css
+├── config.js
+├── docs/                # same static app, extra copy
+├── .env                 # local API key for Flask (not committed)
 ├── .gitignore
 ├── requirements.txt
 ├── README.md
@@ -79,7 +79,7 @@ Then open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 Live demo: [https://a-gupta123.github.io/movie-recommender/](https://a-gupta123.github.io/movie-recommender/)
 
-GitHub Pages cannot run Flask, so the hosted site is the static app in `docs/`. The search form does not ask for an API key.
+GitHub Pages cannot run Flask, so the hosted site is a static HTML/JavaScript app at the repository root.
 
 ## How it works
 

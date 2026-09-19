@@ -5,7 +5,7 @@ import requests
 from dotenv import load_dotenv
 from flask import Flask, render_template, request
 
-load_dotenv()
+load_dotenv(override=True)
 
 app = Flask(__name__)
 
@@ -366,4 +366,5 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # macOS Control Center often occupies port 5000.
+    app.run(debug=True, port=8000)

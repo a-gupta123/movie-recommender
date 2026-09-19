@@ -72,15 +72,13 @@ On Windows, activate the virtual environment with:
 .venv\Scripts\activate
 ```
 
-Then open [http://127.0.0.1:5000](http://127.0.0.1:5000).
+Then open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ## GitHub Pages
 
-The hosted demo is served from the `docs/` folder:
+Live demo: [https://a-gupta123.github.io/movie-recommender/](https://a-gupta123.github.io/movie-recommender/)
 
-[https://a-gupta123.github.io/movie-recommender/](https://a-gupta123.github.io/movie-recommender/)
-
-If the page 404s after a push, wait a minute for GitHub Actions, then check **Settings → Pages** and set the source to **GitHub Actions**.
+GitHub Pages cannot run Flask, so the hosted site is the static app in `docs/`. Paste your TMDB API key on the page once; it stays in your browser and is not stored in the repository.
 
 ## How it works
 
